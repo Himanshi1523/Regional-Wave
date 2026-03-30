@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - News Website</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://i.pinimg.com/564x/b9/3e/43/b93e432b5f26e0dca789a2ef3c44714f.jpg'); /* Background image */
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            animation: fadeInBg 2s ease-out;
+        }
+
+        /* Background fade-in effect */
+        @keyframes fadeInBg {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Container for the whole content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            animation: fadeInContent 2s ease-out;
+        }
+
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Page heading */
+        h1 {
+            font-size: 4em;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.6);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            }
+
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+            }
+        }
+
+        /* Category Row Styling */
+        .category-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        /* Base styling for categories */
+        .category {
+            flex: 1;
+            margin: 0 15px;
+            height: 250px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+            opacity: 0.85;
+        }
+
+        .category:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 1;
+        }
+
+        /* Gradient overlay for better text readability */
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .category:hover::before {
+            opacity: 1;
+        }
+
+        /* Smooth Text Fade In */
+        .category span {
+            z-index: 2;
+            position: relative;
+            color: #fff;
+            animation: fadeText 2s ease-out;
+        }
+
+        @keyframes fadeText {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Specific styling for News */
+        .news {
+          
+            border: 3px solid #0f8cff;
+            text-shadow: 2px 2px 7px rgba(15, 140, 255, 0.8);
+            border-radius: 30px;
+        }
+
+        /* Specific styling for Wallpaper */
+        .Wallpaper {
+            
+            border: 3px dashed #f5b50a;
+            text-shadow: 2px 2px 7px rgba(245, 181, 10, 0.8);
+            border-radius: 30px;
+            transform: rotate(-2deg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .Wallpaper:hover {
+            transform: rotate(0deg) scale(1.12);
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .category-row {
+                flex-direction: column;
+            }
+
+            .category {
+                margin-bottom: 20px;
+                height: 220px;
+            }
+        }
+
+        /* Google Translate Widget */
+        .google-translate {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,bn,te,ta,ml,kn,mr,gu,pa,or,as,ur,sn,ks,sd,ne,bo,si,mni,brx,doi,kok,ks,mlt,sat,mai,dz,sog,bh,kha',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+
+<body>
+    <!-- Google Translate Widget -->
+    <div class="google-translate" id="google_translate_element"></div>
+
+    <div class="container">
+        <!-- Page heading -->
+        <h1>Categories</h1>
+
+        <!-- News Section -->
+        <div class="category-row">
+            <div class="category news" onclick="openNewsCategories()">
+                <span>News</span>
+            </div>
+        </div>
+
+        <!-- Wallpaper Section -->
+        <div class="category-row">
+            <div class="category Wallpaper" onclick="openWallpaperCategories()">
+                <span>Wallpaper</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for navigation -->
+    <script>
+        function openNewsCategories() {
+            window.location.href = "news.html"; // Redirect to news categories page
+        }
+
+        function openWallpaperCategories() {
+            window.location.href = "Wallpaper.html"; // Redirect to Wallpaper categories page
+        }
+    </script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,bn,ta,te,ml,gu,mr,kn,or,as,pa,ur,si,ne,ml,sa,ja,ko,fr,de,es,it,pt,ar',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+    (function() {
+        var gt = document.createElement('script');
+        gt.type = 'text/javascript';
+        gt.async = true;
+        gt.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gt, s);
+    })();
+</script>
+<script>
+    function loadSettings() {
+        // Apply theme
+        const theme = localStorage.getItem('theme') || 'light';
+        document.body.className = theme === 'dark' ? 'dark-mode' : '';
+
+        // Apply font size
+        const fontSize = localStorage.getItem('font-size') || 'medium';
+        document.documentElement.style.fontSize = fontSize === 'large' ? '18px' : fontSize === 'small' ? '12px' : '16px';
+
+        // Apply layout view
+        const layoutView = localStorage.getItem('layout-view') || 'list';
+        applyLayoutView(layoutView);
+    }
+
+    function applyLayoutView(view) {
+        if (view === 'grid') {
+            document.body.classList.add('grid-layout');
+            document.body.classList.remove('list-layout');
+        } else {
+            document.body.classList.add('list-layout');
+            document.body.classList.remove('grid-layout');
+        }
+    }
+
+    window.onload = loadSettings;
+</script>
+
+
+    <div id="google_translate_element"></div> <!-- Google Translate Element -->
+</body>
+
+</html>

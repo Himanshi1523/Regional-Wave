@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Wallpaper</title>
+    <style>
+        /* Basic styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            color: #333;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+               column-count: 3; /* Number of columns */
+            column-gap: 10px; /* Gap between columns */
+        }
+
+        .image-card {
+                display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .image-card img {
+              width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .image-card img:hover {
+            transform: scale(1.05);
+        }
+
+       
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            display: flex;
+            width: 80%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .modal-image {
+            flex: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+
+        .modal-image img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .modal-info {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #fff;
+        }
+
+        .modal-info .action-bar {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-info button, .modal-info a {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .modal-info button.like-btn {
+            background-color: #ff6f61;
+        }
+
+        .modal-info button.like-btn.liked {
+            background-color: #e64a19;
+        }
+
+        .modal-info button:hover, .modal-info a:hover {
+            background-color: #45a049;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .comment-section textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        /* Scroll Buttons */
+        .scroll-btn {
+            position: fixed;
+            padding: 10px;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .scroll-top {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .scroll-bottom {
+            top: 20px;
+            right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Vintage Wallpaper</h1>
+
+    <div class="container" id="image-container"></div>
+
+    
+<!-- Modal for full-screen image view -->
+<div id="myModal" class="modal">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <div class="modal-content">
+        <div class="modal-image">
+            <img id="modalImage" src="" alt="Full Image">
+        </div>
+        <div class="modal-info">
+            <div class="action-bar">
+                <button class="like-btn" onclick="toggleLike(this)">❤️ Like</button>
+                <button onclick="shareImage()">🔗 Share</button>
+                <a id="downloadLink" href="#" download>⬇️ Download</a>
+            </div>
+            <div class="comment-section">
+                <textarea rows="4" placeholder="Add a comment..."></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Scroll to Top and Bottom Buttons -->
+    <button class="scroll-btn scroll-top" id="scrollTopBtn">↑ Top</button>
+    <button class="scroll-btn scroll-bottom" id="scrollBottomBtn">↓ Bottom</button>
+
+    <script>
+        // API key and constants
+        const API_KEY = '45927004-a3340404c11a6a8cea0f2a18b';
+        const API_URL = 'https://pixabay.com/api/';
+        const perPage = 20;  // Number of images per page
+        let currentPage = 1;  // Track current page
+        let query = 'Vintage Wallpaper';  // Query for vintage Wallpaper
+        let isLoading = false;
+
+        // Function to fetch images
+        async function fetchImages(page) {
+            try {
+                const response = await fetch(`${API_URL}?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&per_page=${perPage}&page=${page}`);
+                const data = await response.json();
+ return data.hits;
+        } catch (error) {
+            console.error('Error fetching images:', error);
+            return [];
+        }
+    }
+        // Function to display images
+        function displayImages(images) {
+            const container = document.getElementById('image-container');
+           images.forEach(image => {
+            const div = document.createElement('div');
+            div.classList.add('image-card');
+            div.innerHTML = `
+                <img src="${image.webformatURL}" alt="${image.tags}" onclick="openModal('${image.largeImageURL}', '${image.largeImageURL}')">
+            `;
+            container.appendChild(div);
+        });
+    }
+
+
+    // Open image in modal
+    function openModal(imageUrl, downloadUrl) {
+        const modal = document.getElementById('myModal');
+        const modalImage = document.getElementById('modalImage');
+        const downloadLink = document.getElementById('downloadLink');
+        modal.style.display = 'flex';
+        modalImage.src = imageUrl;
+        downloadLink.href = downloadUrl;
+    }
+
+    // Close modal
+    document.getElementById('closeModal').onclick = function () {
+        document.getElementById('myModal').style.display = 'none';
+    };
+
+    // Toggle like button
+    function toggleLike(button) {
+        button.classList.toggle('liked');
+        button.innerHTML = button.classList.contains('liked') ? '💔 Unlike' : '❤️ Like';
+    }
+
+    // Share image
+    function shareImage() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Vintage Wallpaper',
+                url: document.getElementById('modalImage').src
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            }).catch(console.error);
+        } else {
+            alert('Web Share API not supported in your browser.');
+        }
+    }
+
+
+
+      
+
+        // Scroll to top and bottom functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const scrollBottomBtn = document.getElementById('scrollBottomBtn');
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollTopBtn.style.display = 'block';
+                scrollBottomBtn.style.display = 'none';
+            } else {
+                scrollBottomBtn.style.display = 'block';
+                scrollTopBtn.style.display = 'none';
+            }
+
+             // Check if near bottom of page to load more images
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !isLoading) {
+            loadMoreImages();
+        }
+
+        };
+        scrollTopBtn.onclick = function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    scrollBottomBtn.onclick = function () {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    };
+
+    // Load more images
+    function loadMoreImages() {
+        isLoading = true;
+        currentPage++;
+        fetchImages(currentPage).then(images => {
+            displayImages(images);
+            isLoading = false;
+        });
+    }
+
+    // Initial load
+    fetchImages(currentPage).then(images => displayImages(images));
+</script>
+
+</body>
+</html>

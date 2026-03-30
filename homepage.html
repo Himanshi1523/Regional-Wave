@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regional Wave</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+      header {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header.scrolled {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+           header .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #ff6b6b;
+        }
+
+
+        header .logo:hover {
+            color: #ff6b6b;
+        }
+
+             header nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        header nav a:hover {
+            background-color: #ff6b6b;
+            color: white;
+}
+
+
+
+     /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center center/cover;
+            height: 70vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            animation: heroAnimation 2s ease-out;
+        }
+
+        @keyframes heroAnimation {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+         .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+            font-family: 'Lobster', cursive;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+      @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* News Section */
+        .section {
+            padding: 40px 20px;
+        }
+
+     /* Section Title */
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+            border-bottom: 3px solid #ff6b6b;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .section h2:hover {
+            color: #ff6b6b;
+        }
+        /* News Slider */
+        .news-slider {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-slider .news-items {
+            display: flex;
+   transition: transform 0.5s ease;
+
+ }
+
+        .news-slider  {
+            flex: 0 0 100%;
+            box-sizing: border-box;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-right: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-slider  {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+@keyframes infiniteSlide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+     
+    
+
+         /* News Items */
+        .news-item {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+     .news-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .news-item p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .news-item a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }     
+ .news-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }   /* Search Bar */
+        .search-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Newsletter Signup */
+        .newsletter {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .newsletter input[type="email"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter input[type="email"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            margin-top: 40px;
+            border-top: 1px solid #444;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .footer-links {
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .social-media {
+            margin: 20px 0;
+        }
+
+        .social-media p {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .social-media a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-media a:hover {
+            color: #007bff;
+        }
+
+
+
+        /* Loading Spinner */    
+        .spinner {
+            display: none;
+            margin: 50px auto;
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #007bff;
+            width: 50px;
+            height: 50px;
+            animation: spin 7s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+  <header>
+        <div class="logo">Regional Wave</div>
+        <nav>
+           <a href="homepage.html">Home</a>
+            <a href="categories.html">Categories</a>
+            
+            <a href="aboutus.html">About Us</a>
+            <a href="feedback.html">Feedback</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+        <div id="google_translate_element"></div>
+
+    </header>
+
+    <div class="hero">
+        <h1>Stay Updated with the Latest News</h1>
+        <p>Your daily dose of top stories and breaking news from around the world.</p>
+    </div>
+    <div class="content">
+
+        <div class="section">
+            <h2>Trending News</h2>
+            <div id="trendingNews" class="news-slider">
+                <div class="news-items">
+                    <!-- News items will be inserted here by JavaScript -->
+                </div>
+            </div>
+            <div id="trendingSpinner" class="spinner"></div>
+        </div>
+
+ <div class="section">
+            <h2>Core News</h2>
+            <div id="coreNews" class="news-slider">
+                <div class="news-items">
+                    <!-- News items will be inserted here by JavaScript -->
+                </div>
+            </div>
+            <div id="coreSpinner" class="spinner"></div>
+        </div>
+    </div>
+       
+       
+<div class="search-bar">
+        <input type="text" placeholder="Search news...">
+    </div>
+
+    <div class="newsletter">
+        <input type="email" placeholder="Enter your email for updates">
+        <button>Subscribe</button>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="PrivacyPolicy.html">Privacy Policy</a>
+            <a href="Terms of Services.html">Terms of Service</a>
+            <a href="contactus.html">Contact Us</a>
+        </div>
+        <div class="social-media">
+            <p>Follow us on:</p>
+            <a href="https://facebook.com" class="fab fa-facebook-f" target="_blank"></a>
+            <a href="https://twitter.com" class="fab fa-twitter" target="_blank"></a>
+            <a href="https://instagram.com" class="fab fa-instagram" target="_blank"></a>
+            <a href="https://linkedin.com" class="fab fa-linkedin-in" target="_blank"></a>
+        </div>
+    </footer>
+
+
+    <script>
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+      const rssFeeds = {
+        trending: 'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',
+        core: 'https://www.thehindu.com/news/national/feeder/default.rss'
+    };
+
+    const trendingNewsContainer = document.getElementById('trendingNews').querySelector('.news-items');
+    const coreNewsContainer = document.getElementById('coreNews').querySelector('.news-items');
+
+    const trendingSpinner = document.getElementById('trendingSpinner');
+    const coreSpinner = document.getElementById('coreSpinner');
+
+    function showSpinner(spinner) {
+        spinner.style.display = 'block';
+    }
+
+      
+    function hideSpinner(spinner) {
+        spinner.style.display = 'none';
+    }
+  function formatDate(dateString) {
+        const date = new Date(dateString);
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    }
+
+    function fetchRSS(feedUrl, container, spinner) {
+        showSpinner(spinner);
+        fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`)
+            .then(response => response.json())
+            .then(data => {
+                hideSpinner(spinner);
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+                const items = xmlDoc.getElementsByTagName('item');
+                container.innerHTML = ''; // Clear previous content
+                const newsItemHTML = [];
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i];
+                    const title = item.getElementsByTagName('title')[0].textContent;
+                    const link = item.getElementsByTagName('link')[0].textContent;
+                    const description = item.getElementsByTagName('description')[0].textContent;
+                    const pubDate = item.getElementsByTagName('pubDate')[0].textContent;
+
+                    let imageUrl = '';
+                    const enclosure = item.getElementsByTagName('enclosure')[0];
+                    if (enclosure) {
+                        imageUrl = enclosure.getAttribute('url');
+                    }
+                    if (!imageUrl) {
+                        const mediaContent = item.getElementsByTagName('media:content')[0];
+                        if (mediaContent) {
+                            imageUrl = mediaContent.getAttribute('url');
+                        }
+                    }
+                    if (!imageUrl) {
+                        const content = item.getElementsByTagName('description')[0].textContent;
+                        const imgTag = content.match(/<img[^>]+src="([^">]+)"/);
+                        if (imgTag) {
+                            imageUrl = imgTag[1];
+                        }
+                    }
+                    if (!imageUrl) {
+                        imageUrl = 'https://via.placeholder.com/400x200'; // Placeholder image if no image found
+                    }
+ 
+
+              const formattedDate = formatDate(pubDate);
+
+                    const newsItem = `
+                        <div class="news-item">
+                            <a href="${link}" target="_blank">
+                                <img src="${imageUrl}" alt="${title}" loading="lazy">
+                                <h3>${title}</h3>
+                                <p>${description}</p>
+                                <p><strong>Published on: </strong>${formattedDate}</p>
+                            </a>
+                        </div>
+                    `;
+                    newsItemHTML.push(newsItem);
+                }
+
+                container.innerHTML = newsItemHTML.join('') + newsItemHTML.join('');
+
+                let currentIndex = 0;
+                setInterval(() => {
+                    currentIndex++;
+                    const width = container.querySelector('.news-item').offsetWidth + 20;
+                    container.style.transform = `translateX(-${currentIndex * width}px)`;
+                    if (currentIndex >= newsItemHTML.length) {
+                        currentIndex = 0;
+                        container.style.transition = 'none';
+                        container.style.transform = `translateX(0)`;
+                        setTimeout(() => {
+                            container.style.transition = 'transform 0.5s ease';
+                        }, 0);
+                    }
+                }, 4000);
+            })
+            .catch(error => {
+                console.error('Error fetching the RSS feed:', error);
+                hideSpinner(spinner);
+            });
+    }
+
+    fetchRSS(rssFeeds.trending, trendingNewsContainer, trendingSpinner);
+    fetchRSS(rssFeeds.core, coreNewsContainer, coreSpinner);
+</script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,bn,ta,te,ml,gu,mr,kn,or,as,pa,ur,si,ne,ml,sa,ja,ko,fr,de,es,it,pt,ar',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+    (function() {
+        var gt = document.createElement('script');
+        gt.type = 'text/javascript';
+        gt.async = true;
+        gt.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gt, s);
+    })();
+</script>
+
+
+<script src="theme-settings.js"></script>
+
+
+
+
+
+    <div id="google_translate_element"></div> <!-- Google Translate Element -->
+</body>
+
+</html>

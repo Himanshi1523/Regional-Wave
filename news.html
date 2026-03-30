@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location-Based Indian News</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       body {
+    font-family: 'Arial', sans-serif;
+    background: 
+    
+        url('https://i.pinimg.com/736x/56/be/2f/56be2fc044095df85ec0eb2d5bdba9a8.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    padding: 20px;
+}
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Dropdown Style */
+        .form-container {
+            margin-right: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            height: fit-content;
+        }
+
+        .form-container label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+            color: #007bff;
+        }
+
+        .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        /* News Container */
+        .news-container {
+            flex-grow: 1;
+        }
+
+        .news-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .news-item img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .news-item h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #2f80ed;
+        }
+
+        .news-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .news-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Google Translate */
+        #google_translate_element {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Get Latest Indian News</h1>
+
+    <!-- Google Translate Element -->
+    <div id="google_translate_element"></div>
+
+    <div class="container">
+        <!-- Form with Dropdown and Location Button -->
+        <form class="form-container" id="news-form">
+            <label for="states">Select Indian State:</label>
+            <select id="states">
+                <option value="India">All States</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            </select>
+
+            <button type="button" id="fetch-news-btn">Fetch News</button>
+            <button type="button" id="location-news">Get News for My Location</button>
+        </form>
+
+        <!-- News Items Container -->
+        <div class="news-container" id="news-container">
+            <!-- News items will be inserted here -->
+        </div>
+    </div><script>
+// Google Translate Script
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,bn,ta,te,ml,gu,mr,kn,or,as,pa,ur,si,ne,ml,sa,ja,ko,fr,de,es,it,pt,ar',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+(function() {
+    var gt = document.createElement('script');
+    gt.type = 'text/javascript';
+    gt.async = true;
+    gt.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gt, s);
+})();
+
+// Approximate boundaries for all Indian states (latitude/longitude ranges)
+const stateBoundaries = {
+    "Andhra Pradesh": { latMin: 13, latMax: 20, lonMin: 77, lonMax: 85 },
+    "Arunachal Pradesh": { latMin: 26, latMax: 29.5, lonMin: 91.5, lonMax: 97 },
+    "Assam": { latMin: 24.5, latMax: 28.5, lonMin: 89.5, lonMax: 96 },
+    "Bihar": { latMin: 24, latMax: 27.5, lonMin: 83, lonMax: 88 },
+    "Chhattisgarh": { latMin: 17.5, latMax: 24, lonMin: 80, lonMax: 84.5 },
+    "Goa": { latMin: 14.5, latMax: 15.5, lonMin: 73.5, lonMax: 74.5 },
+    "Gujarat": { latMin: 20, latMax: 24.5, lonMin: 68.5, lonMax: 74.5 },
+    "Haryana": { latMin: 27.5, latMax: 30.5, lonMin: 74.5, lonMax: 77.5 },
+    "Himachal Pradesh": { latMin: 30.5, latMax: 33.5, lonMin: 75.5, lonMax: 79 },
+    "Jharkhand": { latMin: 22, latMax: 24.5, lonMin: 83, lonMax: 87.5 },
+    "Karnataka": { latMin: 11, latMax: 18.5, lonMin: 74, lonMax: 78.5 },
+    "Kerala": { latMin: 8, latMax: 12.5, lonMin: 74.5, lonMax: 77.5 },
+    "Madhya Pradesh": { latMin: 21, latMax: 26.5, lonMin: 74, lonMax: 82 },
+    "Maharashtra": { latMin: 15.5, latMax: 22, lonMin: 72.5, lonMax: 80 },
+    "Manipur": { latMin: 23.5, latMax: 25.5, lonMin: 93.5, lonMax: 95 },
+    "Meghalaya": { latMin: 25, latMax: 26.5, lonMin: 89.5, lonMax: 92.5 },
+    "Mizoram": { latMin: 22, latMax: 24.5, lonMin: 92.5, lonMax: 93.5 },
+    "Nagaland": { latMin: 25.5, latMax: 27.5, lonMin: 93.5, lonMax: 95 },
+    "Odisha": { latMin: 19, latMax: 22.5, lonMin: 81.5, lonMax: 87.5 },
+    "Punjab": { latMin: 29.5, latMax: 32.5, lonMin: 73.5, lonMax: 76.5 },
+    "Rajasthan": { latMin: 23.5, latMax: 30, lonMin: 69.5, lonMax: 78 },
+    "Sikkim": { latMin: 27, latMax: 28, lonMin: 88, lonMax: 89.5 },
+    "Tamil Nadu": { latMin: 8, latMax: 13.5, lonMin: 76, lonMax: 80.5 },
+    "Telangana": { latMin: 16, latMax: 19.5, lonMin: 77, lonMax: 81.5 },
+    "Tripura": { latMin: 22.5, latMax: 24.5, lonMin: 91, lonMax: 93 },
+    "Uttar Pradesh": { latMin: 24.5, latMax: 30, lonMin: 77, lonMax: 84.5 },
+    "Uttarakhand": { latMin: 29, latMax: 31.5, lonMin: 78, lonMax: 81.5 },
+    "West Bengal": { latMin: 21.5, latMax: 27.5, lonMin: 85.5, lonMax: 89.5 },
+    "Andaman and Nicobar Islands": { latMin: 6, latMax: 14, lonMin: 92, lonMax: 94 },
+    "Chandigarh": { latMin: 30.5, latMax: 31, lonMin: 76.5, lonMax: 77 },
+    "Dadra and Nagar Haveli and Daman and Diu": { latMin: 20, latMax: 20.5, lonMin: 72.5, lonMax: 73.5 },
+    "Lakshadweep": { latMin: 10.5, latMax: 12, lonMin: 71, lonMax: 73 },
+    "Delhi": { latMin: 28.4, latMax: 28.9, lonMin: 76.8, lonMax: 77.3 },
+    "Puducherry": { latMin: 11.5, latMax: 12.5, lonMin: 79.5, lonMax: 80 },
+    "Ladakh": { latMin: 32, latMax: 36, lonMin: 76, lonMax: 80 },
+    "Jammu and Kashmir": { latMin: 32.5, latMax: 35, lonMin: 74, lonMax: 76 },
+    "India": { latMin: 6, latMax: 37, lonMin: 68, lonMax: 97 }
+};
+
+async function fetchRSSFeed(state = 'India') {
+    const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(state)}&hl=en-IN&gl=IN&ceid=IN:en`;
+
+    try {
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`);
+        const data = await response.json();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+        const items = xmlDoc.querySelectorAll('item');
+
+        displayNews(items);
+    } catch (error) {
+        console.error('Error fetching RSS feed:', error);
+    }
+}
+
+function displayNews(items) {
+    const newsContainer = document.getElementById('news-container');
+    let htmlContent = '';
+
+    items.forEach(item => {
+        const title = item.querySelector('title').textContent;
+        const link = item.querySelector('link').textContent;
+        const description = item.querySelector('description').textContent;
+        const imageUrl = description.match(/<img[^>]+src="([^">]+)"/);
+        const imageSrc = imageUrl ? imageUrl[1] : 'https://via.placeholder.com/150';
+
+        htmlContent += `
+            <div class="news-item">
+                <img src="${imageSrc}" alt="News Image">
+                <div>
+                    <h2><a href="${link}" target="_blank">${title}</a></h2>
+                    <p>${description}</p>
+                </div>
+            </div>
+        `;
+    });
+
+    newsContainer.innerHTML = htmlContent;
+}
+
+document.getElementById('fetch-news-btn').addEventListener('click', () => {
+    const selectedState = document.getElementById('states').value;
+    fetchRSSFeed(selectedState);
+});
+
+document.getElementById('states').addEventListener('change', () => {
+    const selectedState = document.getElementById('states').value;
+    fetchRSSFeed(selectedState);
+});
+
+document.getElementById('location-news').addEventListener('click', async () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const userLatitude = position.coords.latitude;
+            const userLongitude = position.coords.longitude;
+
+            let foundState = 'India'; // Default to India if no match found
+            for (const state in stateBoundaries) {
+                const boundary = stateBoundaries[state];
+                if (userLatitude >= boundary.latMin && userLatitude <= boundary.latMax &&
+                    userLongitude >= boundary.lonMin && userLongitude <= boundary.lonMax) {
+                    foundState = state;
+                    break;
+                }
+            }
+
+            fetchRSSFeed(foundState);
+        }, () => {
+            // Error or permission denied for geolocation
+            fetchRSSFeed('India');
+        });
+    } else {
+        // Geolocation not supported, fetch news for India
+        fetchRSSFeed('India');
+    }
+});
+
+// Initial news load
+fetchRSSFeed();
+</script>
+<script>
+    function loadSettings() {
+        // Apply theme
+        const theme = localStorage.getItem('theme') || 'light';
+        document.body.className = theme === 'dark' ? 'dark-mode' : '';
+
+        // Apply font size
+        const fontSize = localStorage.getItem('font-size') || 'medium';
+        document.documentElement.style.fontSize = fontSize === 'large' ? '18px' : fontSize === 'small' ? '12px' : '16px';
+
+        // Apply layout view
+        const layoutView = localStorage.getItem('layout-view') || 'list';
+        applyLayoutView(layoutView);
+    }
+
+    function applyLayoutView(view) {
+        if (view === 'grid') {
+            document.body.classList.add('grid-layout');
+            document.body.classList.remove('list-layout');
+        } else {
+            document.body.classList.add('list-layout');
+            document.body.classList.remove('grid-layout');
+        }
+    }
+
+    window.onload = loadSettings;
+</script>
+
+</body>
+</html>

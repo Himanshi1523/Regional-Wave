@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Website Settings</title>
+    <style>
+/* Light Mode Styles */
+body {
+    background-color: #fff;
+    color: #000;
+}
+
+header {
+    background-color: #f8f9fa;
+}
+
+/* Dark Mode Styles */
+.dark-mode body {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.dark-mode header {
+    background-color: #34495e;
+}
+
+        /* Global Font and Basic Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color, #fff);
+            color: var(--text-color, #000);
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Enhanced Background Styling */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+                              url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px) brightness(0.8);
+            opacity: 0.6;
+            z-index: -1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Animate background brightness on hover */
+        body:hover::before {
+            filter: blur(3px) brightness(1);
+            opacity: 0.7;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        header a {
+            color: white;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        header a:hover {
+            color: #FFD700;
+        }
+        /* Container */
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .setting-group {
+            margin-bottom: 30px;
+        }
+
+        .setting-group h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .setting-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .setting-group input,
+        .setting-group select,
+        .setting-group textarea,
+        .setting-group button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .setting-group input:focus,
+        .setting-group select:focus,
+        .setting-group textarea:focus {
+            border-color: #333;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .setting-group button {
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .setting-group button:hover {
+            background-color: #FFD700;
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            --background-color: #2c3e50;
+            --text-color: #ecf0f1;
+        }
+
+        .dark-mode body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .dark-mode header {
+            background-color: rgba(51, 51, 51, 0.8);
+        }
+
+        .dark-mode .container {
+            background-color: rgba(44, 62, 80, 0.85);
+            border: 1px solid #34495e;
+            color: var(--text-color);
+        }
+
+        .dark-mode .setting-group label,
+        .dark-mode .setting-group h3 {
+            color: #ecf0f1;
+        }
+
+        /* Grid Layout */
+        .grid-layout .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        /* List Layout */
+        .list-layout .container {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #777;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body onload="loadSettings()">
+
+    <!-- Header Section -->
+    <header>
+        <a href="homepage.html">Home</a>
+        <a href="categories.html">Categories</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="login.html">Login</a>
+        <a href="settings.html">Settings</a>
+    </header>
+
+    <!-- Settings Page Content -->
+    <div class="container">
+        <h2>Settings</h2>
+
+        <!-- Account Settings -->
+        <div class="setting-group">
+            <h3>Account Settings</h3>
+            <label for="profile-name">Profile Name:</label>
+            <input type="text" id="profile-name" placeholder="Enter Name">
+
+            <label for="profile-email">Email:</label>
+            <input type="email" id="profile-email" placeholder="Enter Email">
+
+            <label for="profile-pic">Profile Picture URL:</label>
+            <input type="text" id="profile-pic" placeholder="Enter Profile Picture URL">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter New Password">
+        </div>
+
+        <!-- Notifications -->
+        <div class="setting-group">
+            <h3>Notifications</h3>
+            <label for="email-notifications">Email Notifications:</label>
+            <select id="email-notifications">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+            </select>
+
+            <label for="breaking-news-alerts">Breaking News Alerts:</label>
+            <select id="breaking-news-alerts">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+            </select>
+
+            <label for="newsletter">Newsletter Subscription:</label>
+            <select id="newsletter">
+                <option value="subscribe">Subscribe</option>
+                <option value="unsubscribe">Unsubscribe</option>
+            </select>
+        </div>
+
+        <!-- Layout and Display Settings -->
+        <div class="setting-group">
+            <h3>Display Settings</h3>
+            <label for="font-size">Font Size:</label>
+            <select id="font-size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+
+            <label for="theme">Theme:</label>
+            <select id="theme">
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+
+            <label for="layout-view">Layout View:</label>
+            <select id="layout-view">
+                <option value="">Grid View</option>
+                <option value="list">List View</option>
+            </select>
+        </div>
+
+        <!-- General Settings -->
+        <div class="setting-group">
+            <h3>General Settings</h3>
+            <label for="language">Language:</label>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="es">Spanish</option>
+            </select>
+        </div>
+
+        <!-- Feedback and Support -->
+        <div class="setting-group">
+            <h3>Feedback and Support</h3>
+            <label for="feedback">Feedback:</label>
+            <textarea id="feedback" placeholder="Write your feedback here..." rows="4"></textarea>
+        </div>
+
+        <!-- Log out/Delete Account -->
+        <div class="setting-group">
+            <button onclick="logout()">Log Out</button>
+            <button onclick="deleteAccount()">Delete Account</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Your News Website. All Rights Reserved.
+    </footer>
+<script>
+    // Function to save the theme preference
+    document.getElementById('theme').addEventListener('change', function() {
+        const selectedTheme = this.value;
+        localStorage.setItem('theme', selectedTheme);
+        applyTheme(selectedTheme);
+    });
+
+    // Function to apply the theme based on localStorage value
+    function loadSettings() {
+        const theme = localStorage.getItem('theme') || 'light';
+        applyTheme(theme);
+    }
+
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }
+
+    window.onload = loadSettings;
+</script>
+
+    <script>
+        // Load settings from local storage and apply them across the website
+        function loadSettings() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.body.className = theme === 'dark' ? 'dark-mode' : '';
+
+            const fontSize = localStorage.getItem('font-size') || 'medium';
+            document.documentElement.style.fontSize = fontSize === 'large' ? '18px' : fontSize === 'small' ? '12px' : '16px';
+
+            const layoutView = localStorage.getItem('layout-view') || 'list';
+            applyLayoutView(layoutView);
+        }
+
+        // Save theme settings to local storage
+        document.getElementById('theme').addEventListener('change', function() {
+            const selectedTheme = this.value === 'dark' ? 'dark-mode' : '';
+            document.body.className = selectedTheme;
+            localStorage.setItem('theme', this.value);
+        });
+
+        // Save font size settings to local storage
+        document.getElementById('font-size').addEventListener('change', function() {
+            const selectedFontSize = this.value;
+            document.documentElement.style.fontSize = selectedFontSize === 'large' ? '18px' : selectedFontSize === 'small' ? '12px' : '16px';
+            localStorage.setItem('font-size', selectedFontSize);
+        });
+
+        // Save layout view settings to local storage
+        document.getElementById('layout-view').addEventListener('change', function() {
+            const selectedLayout = this.value;
+            applyLayoutView(selectedLayout);
+            localStorage.setItem('layout-view', selectedLayout);
+        });
+
+        function applyLayoutView(view) {
+            if (view === 'grid') {
+                document.body.classList.add('grid-layout');
+                document.body.classList.remove('list-layout');
+            } else {
+                document.body.classList.add('list-layout');
+                document.body.classList.remove('grid-layout');
+            }
+        }
+
+        // Log out and delete account actions (simple alert for now)
+        function logout() {
+            alert("Logged out successfully!");
+        }
+
+        function deleteAccount() {
+            if (confirm("Are you sure you want to delete your account?")) {
+                alert("Account deleted.");
+            }
+        }
+
+        // Load settings when the page loads
+        window.onload = loadSettings;
+    </script>
+
+</body>
+</html>
+

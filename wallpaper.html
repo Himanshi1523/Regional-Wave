@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpaper Categories</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://i.pinimg.com/564x/be/99/d5/be99d5c0194658e86dda7fcb1e4e5795.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #fff;
+            animation: colorChange 5s infinite;
+            background: linear-gradient(90deg, #ff6f61, #ffb74d, #64b5f6, #4db6ac);
+        
+        }
+
+        @keyframes colorChange {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .category-card {
+            background-color: rgba(255, 255, 255, 0); /* Fully transparent background */
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Border with partial transparency */
+            color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            width: 250px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.1); /* Slight background color on hover */
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            opacity: 0.9; /* Slight transparency for image */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .category-card:hover img {
+            opacity: 1;
+        }
+
+        .category-card h2 a {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            font-style: italic;
+            color: brown !important; /* Use !important to ensure it overrides other styles */
+            text-decoration: none;
+        }
+
+        .category-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Floating navigation button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6f61;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .scroll-top:hover {
+            background-color: #e64a19;
+        }
+    </style>
+</head>
+<body>
+
+
+    <h1>Wallpaper Categories</h1>
+
+    <div class="container">
+        <div class="category-card">
+            <img src="https://i.pinimg.com/736x/fa/7f/2e/fa7f2ee60d7d39e973228b244c149ad9.jpg" alt="weather Wallpaper">
+            <h2><a href="weather.html">Weather Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/c7/9b/b5/c79bb5472c4360eb59dc346a195c996f.jpg" alt="Festival Wallpaper">
+            <h2><a href="Festival.html">Festival Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/df/55/df/df55df8ffb7b97f0d3ec1c1d10c98c1f.jpg" alt="Love Wallpaper">
+            <h2><a href="love.html">Love Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/c8/5c/a1/c85ca1c677360ba37e07a7ae358c3a8a.jpg" alt="vintage Wallpaper">
+            <h2><a href="vintage.html">Vintage Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/18/ac/59/18ac5906dcbfb58a2edcc43628b02b00.jpg" alt="god Wallpaper">
+            <h2><a href="god.html">God Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/82/37/b6/8237b6ff21f1a881ee48a646f7925833.jpg" alt="flower Wallpaper">
+            <h2><a href="flower.html">Flower Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/0f/e7/56/0fe7568d93c5342261c9a4257f774e8a.jpg" alt="Dance Wallpaper">
+            <h2><a href="dance.html">Dance Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/80/e3/5c/80e35c7b4408702c0bf1b1ca78e13909.jpg" alt="art Wallpaper">
+            <h2><a href="art.html">Art Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/ee/bd/47/eebd4772386f3e7be1f5fca0a2bd1e69.jpg" alt="space Wallpaper">
+            <h2><a href="space.html">Space Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/20/a5/76/20a5766a2b1911dcf6d30a0f4d478ad0.jpg" alt="Vehicles/Affirmative Wallpaper">
+            <h2><a href="Vehicles.html">Vehicles Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/736x/ac/00/e9/ac00e94e0cdc7bab80ce09396bbb05c8.jpg" alt="village Wallpaper">
+            <h2><a href="village.html">Village Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/a1/87/5e/a1875eeab10851355241fa3bf5af6828.jpg" alt="Spiritual Wallpaper">
+            <h2><a href="spiritual.html">Spiritual Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/cc/49/d3/cc49d3041eb889e03b123d05ce094711.jpg" alt="fashion Wallpaper">
+            <h2><a href="fashion.html">Fashion Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/72/b0/46/72b046c9279524e11b01f5c14f116c70.jpg" alt="food Wallpaper">
+            <h2><a href="food.html">Food Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/7c/d4/32/7cd4322a665b0d96a05a80c9eec1bcf0.jpg" alt="Nature Wallpaper">
+            <h2><a href="nature.html">Nature Wallpaper</a></h2>
+        </div>
+
+        <div class="category-card">
+            <img src="https://i.pinimg.com/564x/d6/ba/81/d6ba8154bb60c13240583f21ff206bad.jpg" alt="music Wallpaper">
+            <h2><a href="music.html">Music Wallpaper</a></h2>
+        </div>
+    </div>
+
+    
+    <!-- Scroll to Top Button -->
+    
+    <button class="scroll-top" id="scrollTopBtn">↑ Top</button>
+
+    <script>
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollTopBtn.style.display = 'block';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        };
+
+        scrollTopBtn.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+
+</body>
+</html>
+wallpaper.html
+Displaying contactus.html.

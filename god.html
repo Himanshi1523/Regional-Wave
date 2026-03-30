@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>God Wallpaper</title>
+    <style>
+        /* Basic styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .image-card {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: #fff;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+       
+        /* Scroll buttons */
+        .scroll-btn {
+            position: fixed;
+            padding: 10px;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .scroll-btn:hover {
+            background-color: #e64a19;
+        }
+
+        .scroll-top {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .scroll-bottom {
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>God Wallpaper</h1>
+
+    <div class="container" id="image-container"></div>
+
+    <!-- Scroll to Top and Bottom Buttons -->
+    <button class="scroll-btn scroll-top" id="scrollTopBtn">↑ Top</button>
+    <button class="scroll-btn scroll-bottom" id="scrollBottomBtn">↓ Bottom</button>
+
+    <script>
+        // API key and constants
+        const API_KEY = '45927004-a3340404c11a6a8cea0f2a18b';
+        const API_URL = 'https://pixabay.com/api/';
+        const perPage = 200;  // Number of images per page
+        let currentPage = 1;  // Set to page 14
+        let query = 'god';  // Query for god Wallpaper
+
+        // Function to fetch images
+        async function fetchImages(page) {
+            try {
+                const response = await fetch(`${API_URL}?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&per_page=${perPage}&page=${page}`);
+                const data = await response.json();
+                if (data.totalHits === 0) {
+                    throw new Error('No images found for the query');
+                }
+                return data.hits;
+            } catch (error) {
+                console.error('Error fetching images:', error);
+                return [];  // Return an empty array if there's an error
+            }
+        }
+
+        // Function to display images
+        function displayImages(images) {
+            const container = document.getElementById('image-container');
+            container.innerHTML = '';  // Clear existing images
+            images.forEach(image => {
+                const div = document.createElement('div');
+                div.classList.add('image-card');
+                div.innerHTML = `<img src="${image.webformatURL}" alt="${image.tags}">`;
+                container.appendChild(div);
+            });
+        }
+
+        // Load and display images for the current page
+        function loadPage(page) {
+            fetchImages(page).then(images => {
+                if (images.length > 0) {
+                    displayImages(images);
+                    updatePagination(page);
+                } else {
+                    document.getElementById('image-container').innerHTML = '<p>No images available for the selected page.</p>';
+                }
+            });
+        }
+
+       
+        // Scroll to top and bottom functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const scrollBottomBtn = document.getElementById('scrollBottomBtn');
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollTopBtn.style.display = 'block';
+                scrollBottomBtn.style.display = 'none';
+            } else {
+                scrollBottomBtn.style.display = 'block';
+                scrollTopBtn.style.display = 'none';
+            }
+        };
+
+        scrollTopBtn.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        scrollBottomBtn.onclick = function() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        };
+
+        // Initial setup
+        loadPage(currentPage);  // Load page 14 by default
+    </script>
+
+</body>
+</html>
+god.html
+Displaying contactus.html.
